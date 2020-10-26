@@ -23,4 +23,3 @@ https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-result
 > * How has athlete height, weight, BMI, age trends changed?
 > * Is there a relationship between the host country and how well the team from that country does in that particular Olympic Game, or in subsequent Olympic Games?
 > 
-
