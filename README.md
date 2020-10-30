@@ -7,7 +7,9 @@
 *Last update: 10/30/2020*
 ***
 
-![clapperboard gif](https://media.giphy.com/media/8lKyuiFprZaj2lC3WN/giphy.gif)
+<center><img src = https://media.giphy.com/media/8lKyuiFprZaj2lC3WN/giphy.gif></center>
+
+[giphy](https://media.giphy.com/media/8lKyuiFprZaj2lC3WN/giphy.gif)
 
 ## Table of Contents
 1. [Background](#Lights)
