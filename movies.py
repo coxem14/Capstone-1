@@ -81,7 +81,24 @@ def get_counts_df(df, column):
     
     return column_counts_df
 
+def create_bool_columns(df, column_name, list_of_columns):
+    for column in list_of_columns:
+        df[column] = df[column_name].apply(lambda x: 1 if column in x else 0)
 
+def broadcast_and_clean(df, broadcast_col, list_of_columns):
+    out_df = df[[broadcast_col] + list_of_columns]
+    
+    for column in list_of_columns:
+        out_df[column] = out_df[column]*out_df[broadcast_col]
+    
+    out_df = out_df.drop(columns = [broadcast_col])
+    out_df = out_df.replace(0.0,np.nan)
+    
+    return out_df
+
+def get_top(df, num, column, list_of_columns):
+    out_df = df.nlargest(num, column)[list_of_columns]
+    return out_df
 
 
 
@@ -111,34 +128,15 @@ def counts_horizontal_bar(df, x_column, y_column, x_min, x_max, x_inc, ax):
     ax.xaxis.grid(True)
     fig.tight_layout()
 
-def plot_predictions_vs_actual(X, target, results, x_label, y_label, actual_label, predict_label):
-    betas = np.array(results.params).reshape(-1,1)
-    y_p = np.dot(X, betas)
-    
-    x = np.arange(len(target))
-    
-    fig = plt.figure(figsize=(10,6))
-    ax = fig.add_subplot(111)
-    ax.plot(x, target, label=actual_label)
-    ax.plot(x, y_p, c='r',label=predict_label)
-    ax.set_xlabel(x_label, fontsize = 20)
-    ax.set_ylabel(y_label, fontsize = 20)
-    ax.legend()
-
-    def plot_residuals(X, target, results, residuals, x_label='Predicted', y_label='Residuals'):
-    fig, ax = plt.subplots()
-    y_predict = results.predict(X)
-    ax.scatter(y_predict, residuals, alpha=0.5)
-    ax.axhline(0, color='r', ls='--')
-    ax.set_xlabel(x_label)
-    ax.set_ylabel(y_label)
-
-    def qq_plot(X, target, results, title='QQ Plot vs Normal Distribution for Residuals'):
-    fig, ax = plt.subplots(figsize = (8, 8))
-    y_predict = results.predict(X)
-    stats.probplot(target - y_predict, plot=ax)
-    ax.set_title(title, fontsize = 18)
-
+def violin_plot_by_genre(data, x_labels, y_label, title):
+    sns.set(style='whitegrid')
+    fig, ax = plt.subplots(figsize=(20,10))
+    ax.set_ylabel(y_label, fontsize = 24)
+    ax.set_title(title, fontsize = 24)
+    plt.yticks(fontsize=20)
+    ax.set_xticklabels(x_labels, fontsize = 20, rotation=45)
+    sns.violinplot(data=data, ax=ax)
+    fig.tight_layout()
 
 
 
@@ -148,7 +146,7 @@ def plot_predictions_vs_actual(X, target, results, x_label, y_label, actual_labe
 
 
 '''
-Linear Regression Model Helper Functions
+Linear Regression Model and Plot Helper Functions
 '''
 
 def model_linear_regression(df, target_col, lst_variable_cols):
@@ -160,7 +158,8 @@ def model_linear_regression(df, target_col, lst_variable_cols):
     
     model = sm.OLS(target, X)
     results = model.fit()
-    return X, target, results
+    residuals = results.resid
+    return X, target, results, residuals
     
 def plot_predictions_vs_actual(X, target, results, x_label, y_label, actual_label, predict_label):
     betas = np.array(results.params).reshape(-1,1)
@@ -176,7 +175,19 @@ def plot_predictions_vs_actual(X, target, results, x_label, y_label, actual_labe
     ax.set_ylabel(y_label, fontsize = 20)
     ax.legend()
 
+def plot_residuals(X, target, results, residuals, x_label='Predicted', y_label='Residuals'):
+    fig, ax = plt.subplots()
+    y_predict = results.predict(X)
+    ax.scatter(y_predict, residuals, alpha=0.5)
+    ax.axhline(0, color='r', ls='--')
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(y_label)
 
+def qq_plot(X, target, results, title='QQ Plot vs Normal Distribution for Residuals'):
+    fig, ax = plt.subplots(figsize = (8, 8))
+    y_predict = results.predict(X)
+    stats.probplot(target - y_predict, plot=ax)
+    ax.set_title(title, fontsize = 18)
 
 
 
