@@ -32,9 +32,18 @@ Out of the 5 unique csv files included in the dataset, I used the following:
 
 There were also files containing movie plot keywords, credits, and links to all the movies in the Full MovieLens dataset. I might explore these further when I learn about NLP.
 
+[Back to Top](#Table-of-Contents)
+
 ## Action
 
 I utilized [Jupyter Notebook](https://github.com/coxem14/Capstone-1/blob/main/MoviEDA.ipynb) for my analysis, and consolidated the functions I wrote to aid in data cleaning, data manipulating, and plotting into my [movies.py](https://github.com/coxem14/Capstone-1/blob/main/movies.py) file.
+
+####
+
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/dataset_snapshot.png'>
+</p>
+
 
 ## Proposal: MoviEDA
 
