@@ -23,7 +23,7 @@
 
 ## Lights
 
- Movies touch many lives on a daily basis. They inspire us, educate us, and at times impact our beliefs, culture, and values. For some, movies offer a way to escape reality and unwind. For others, they provide an avenue for spending quality time with family and friends. However, film is much more than that. In 2019, the worldwide revenue for the film and streaming industry hit a record $100 billion USD<sup>[1]</sup>, with box office revenue surpassing $42 billion USD<sup>[2]</sup>. In the US, film and television support 2.5 million jobs, and pays over 180 billion USD in annual wages<sup>[3]</sup>. There is a lot of money to be made in movies, but no surefire way to make a profit. Data science allows us to analyze the factors which  influence how a movie performs and make predictions about what audiences want.
+ Movies touch many lives on a daily basis. They inspire us, educate us, and at times impact our beliefs, culture, and values. For some, movies offer a way to escape reality and unwind. For others, they provide an avenue for spending quality time with family and friends. However, film is much more than that. In 2019, the worldwide revenue for the film and streaming industry hit a record $100 billion USD<sup>[1]</sup>, with box office revenue surpassing $42 billion USD<sup>[2]</sup>. In the US, film and television support 2.5 million jobs, and pays over 180 billion USD in annual wages<sup>[3]</sup>. There is a lot of money to be made in movies, but no surefire way to make a profit. Data science allows us to analyze the factors which influence how a movie performs and make predictions about what audiences want.
 
 ## Camera
 I have always been a huge fan of movies, so when I saw [The Movie Dataset](https://www.kaggle.com/rounakbanik/the-movies-dataset) on Kaggle, I took advantage of the opportunity to explore my interest while learning more about exploratory data analysis. The dataset is a combination of data collected from [TMDB](https://www.themoviedb.org/) (The Movie Database) API and [GroupLens](https://grouplens.org/datasets/movielens/latest/). 
@@ -70,11 +70,28 @@ I investigated each column, eliminated those I would need more advanced NLP or i
 > * Appeared to be date, but was - you guessed it - a string
 >   * release_date    
 
-
 ### The Pursuit
 
+```
+def literal_return(val):
+    try:
+        return literal_eval(val)
+    except (ValueError, SyntaxError) as e:
+        return val
+
+def df_str_to_literal(df, column_name):
+    df[column_name] = df[column_name].apply(literal_return)
+    return df[column_name]
+
+def name_cleaner(list_of_dicts):
+    if isinstance(list_of_dicts, list):
+        return [d['name'] for d in list_of_dicts]
+    #Return empty list in case of missing/malformed data
+    return []
+```
 
 ### Unexpected Visitor
+
 
 
 ### Montage
