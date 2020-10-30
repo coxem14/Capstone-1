@@ -2,13 +2,28 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from ast import literal_eval
+import seaborn as sns
+import math
+from pandas.plotting import scatter_matrix
+import statsmodels.api as sm
 
 movies_meta = pd.read_csv('./archive/movies_metadata.csv')
-genres_df = pd.DataFrame(movies_meta['genres'])
+#genres_df = pd.DataFrame(movies_meta['genres'])
 
 '''
-Str_to_list_of_dicts - takes a column from a dataframe (where the data type is a string object that looks like a list of dictionaires) and converts it to a dataframe where the column is a list of dictionaries 
+Cleaning Helper Functions
+
+literal_return - tries to perform an evaluation of a literal Python string and if successful returns the literal. Called in df_str_to_literal.
+
+df_str_to_literal - takes in a dataframe and column_name string and returns the dataframe column as the new literal type. 
+
+dict_name_cleaner_ - takes in a dictionary, checks if the parameter is actually a dictionary, and if so returns a list of values corresponding to the 'name' key in that dictionary. If it is not a dictionary, it returns an empty list.
+
+
+
+
 '''
+
 
 def literal_return(val):
     try:
@@ -16,20 +31,164 @@ def literal_return(val):
     except (ValueError, SyntaxError) as e:
         return val
 
-
-def str_to_list_of_dicts(df, column_name):
+def df_str_to_literal(df, column_name):
     df[column_name] = df[column_name].apply(literal_return)
     return df[column_name]
+
+def dict_name_cleaner(d):
+    if isinstance(d, dict):
+        return [d['name']]
+    #Return empty list in case of missing/malformed data
+    return []
+
+def name_cleaner(list_of_dicts):
+    if isinstance(list_of_dicts, list):
+        return [d['name'] for d in list_of_dicts]
+    return []
+
+def countries_cleaner(list_of_dicts):
+    if isinstance(list_of_dicts, list):
+        return [d['iso_3166_1'] for d in list_of_dicts]
+    return []
+
+def language_cleaner(list_of_dicts):
+    if isinstance(list_of_dicts, list):
+        return [d['iso_639_1'] for d in list_of_dicts]
+    return []
+
+def budget_cleaner(string):
+    if string.isnumeric():
+        val = int(string)
+        return val
+    
+    return 0
+
+
+
+'''
+Manipulating DataFrames Helper Functions
+
+get_counts_df - takes in a dataframe with columns containing lists and returns a new dataframe with the items in the list exploded and reindexed to get total counts of the values in the lists across the entire dataframe. Can graph counts vs values easily.
+
+
+'''
+
+def get_counts_df(df, column):
+    column_df = pd.DataFrame(df[column])
+    column_counts = column_df[column].explode().value_counts()
+    column_counts_df = column_counts.to_frame('counts').reset_index()
+    column_counts_df = column_counts_df.rename(columns = {'index': column})
+    
+    return column_counts_df
+
+
+
+
+
+'''
+Plotting Helper Functions
+'''
+
+def make_scatter_matrix(df):
+    s_matrix = scatter_matrix(df, figsize = (20,20))
+
+    for ax in s_matrix.ravel():
+        ax.set_xlabel(ax.get_xlabel(), fontsize = 20, rotation = 45)
+        ax.set_ylabel(ax.get_ylabel(), fontsize = 20, rotation = 90)
+
+def counts_horizontal_bar(df, x_column, y_column, x_min, x_max, x_inc, ax):
+    x_data = df[x_column]
+    y_data = df[y_column]
+    y = np.arange(len(y_data))
+    x = np.linspace(x_min, x_max, (x_max-x_min)//x_inc + 1, dtype='int')
+    
+    ax.barh(y_data, x_data)
+    ax.invert_yaxis()
+    ax.set_yticks(y)
+    ax.set_xticks(x)
+    ax.set_xticklabels(x, fontsize = 18, rotation = 45)
+    ax.set_yticklabels(y_data, fontsize = 18)
+    ax.xaxis.grid(True)
+    fig.tight_layout()
+
+def plot_predictions_vs_actual(X, target, results, x_label, y_label, actual_label, predict_label):
+    betas = np.array(results.params).reshape(-1,1)
+    y_p = np.dot(X, betas)
+    
+    x = np.arange(len(target))
+    
+    fig = plt.figure(figsize=(10,6))
+    ax = fig.add_subplot(111)
+    ax.plot(x, target, label=actual_label)
+    ax.plot(x, y_p, c='r',label=predict_label)
+    ax.set_xlabel(x_label, fontsize = 20)
+    ax.set_ylabel(y_label, fontsize = 20)
+    ax.legend()
+
+    def plot_residuals(X, target, results, residuals, x_label='Predicted', y_label='Residuals'):
+    fig, ax = plt.subplots()
+    y_predict = results.predict(X)
+    ax.scatter(y_predict, residuals, alpha=0.5)
+    ax.axhline(0, color='r', ls='--')
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(y_label)
+
+    def qq_plot(X, target, results, title='QQ Plot vs Normal Distribution for Residuals'):
+    fig, ax = plt.subplots(figsize = (8, 8))
+    y_predict = results.predict(X)
+    stats.probplot(target - y_predict, plot=ax)
+    ax.set_title(title, fontsize = 18)
+
+
+
+
+
+
+
+
+
+'''
+Linear Regression Model Helper Functions
+'''
+
+def model_linear_regression(df, target_col, lst_variable_cols):
+    sorted_df = df.sort_values(by = [target_col])
+    target = np.array(sorted_df[target_col])
+    
+    variables_df = sorted_df[lst_variable_cols]
+    X = np.array(sm.add_constant(variables_df))
+    
+    model = sm.OLS(target, X)
+    results = model.fit()
+    return X, target, results
+    
+def plot_predictions_vs_actual(X, target, results, x_label, y_label, actual_label, predict_label):
+    betas = np.array(results.params).reshape(-1,1)
+    y_p = np.dot(X, betas)
+    
+    x = np.arange(len(target))
+    
+    fig = plt.figure(figsize=(10,6))
+    ax = fig.add_subplot(111)
+    ax.plot(x, target, label=actual_label)
+    ax.plot(x, y_p, c='r',label=predict_label)
+    ax.set_xlabel(x_label, fontsize = 20)
+    ax.set_ylabel(y_label, fontsize = 20)
+    ax.legend()
+
+
+
+
+
+
+
+
+
 
 '''
 Genres_cleaner - returns the value for the 'name' key in each dictionary in the list of dictionaries when mapped to a column of a dataframe
 '''    
 
-def genres_cleaner(list_of_dicts):
-    if isinstance(list_of_dicts, list):
-        return [d['name'] for d in list_of_dicts]
-    #Return empty list in case of missing/malformed data
-    return []
 
 genres_lists = str_to_list_of_dicts(df = genres_df, column_name = 'genres').map(genres_cleaner)
 #print(genres_lists.head())

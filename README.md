@@ -1,8 +1,38 @@
-# Capstone-1
+**********************************************
+# MoviEDA - Predicting Box Office Revenues
+**********************************************
+
+#### Erin Cox
+#### https://github.com/coxem14/Capstone-1
+*Last update: 10/30/2020*
+***
+
+<p align="center">
+<img src="(https://media.giphy.com/media/8lKyuiFprZaj2lC3WN/giphy.gif)">
+
+[ giphy](https://media.giphy.com/media/8lKyuiFprZaj2lC3WN/giphy.gif)
+</p>
+
+## Table of Contents
+1. [Background](#Lights)
+2. [Data](#Camera)
+3. [Analysis](#Action)
+
+
+## Lights
+
+Who doesn't like movies? This is an interesting introduction about the movie industry and why it is important. The multi-'million dollar' question is how to predict how a movie will perform for reasons that I need to research.
+
+## Camera
+I have always been a huge fan of movies, so when I saw [ The Movie Dataset](https://www.kaggle.com/rounakbanik/the-movies-dataset) on Kaggle, I decided to use this as an opportunity to explore my interest while learning more about exploratory data analysis. The dataset is a combination of data collected from [TMDB](https://www.themoviedb.org/) (The Movie Database) API and [GroupLens](https://grouplens.org/datasets/movielens/latest/). 
+
+Out of the 5 unique csv files included in the dataset, I used the following: 
+> * movies_metadata.csv - The primary Movies Metadata file that includes 24 columns of information on 45k+ movies.
+> * ratings.csv - Ratings from GroupLens users 
+
+## Action
 
 ## Proposal: MoviEDA
-
-https://www.kaggle.com/rounakbanik/the-movies-dataset?select=movies_metadata.csv
 
 Some ideas to explore:
 
@@ -12,14 +42,3 @@ Some ideas to explore:
 > * Do certain genres of movies generate more revenue than others? Higher ratings than others?
 > * Does runtime impact budget, revenue, or rating?
 
-
-## Back-up
-
-https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results
-
-> * Various relationships between Olympic events, athlete gender and body characteristics (heigh/weight), team (country), season (Winter vs Summer), and host location.
-> * How have the Olympic Games evolved over time?
-> * Which countries have the best athletes? How has this changed over time?
-> * How has athlete height, weight, BMI, age trends changed?
-> * Is there a relationship between the host country and how well the team from that country does in that particular Olympic Game, or in subsequent Olympic Games?
-> 
