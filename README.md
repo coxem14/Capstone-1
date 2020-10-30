@@ -8,7 +8,7 @@
 ***
 
 <p align = 'center'>
-    <img #src = 'https://media.giphy.com/media/8lKyuiFprZaj2lC3WN/giphy.gif'>
+    <img src = 'https://media.giphy.com/media/8lKyuiFprZaj2lC3WN/giphy.gif'>
 </p>
 
 ## Table of Contents
@@ -35,6 +35,11 @@ Out of the 5 unique csv files included in the dataset, I used the following:
 There were also files containing movie plot keywords, credits, and links to all the movies in the Full MovieLens dataset. I might explore these further when I learn about NLP.
 
 ## Action
+
+Questions:
+> * Are there relationships between the budget for a movie and how much revenue it generates? 
+> * Do certain genres of movies generate more revenue than others? Higher ratings than others?
+> * Does runtime impact budget, revenue, or rating?
 
 I utilized [Jupyter Notebook](https://github.com/coxem14/Capstone-1/blob/main/MoviEDA.ipynb) for my analysis, and consolidated the functions I wrote to aid in data cleaning, data manipulating, and plotting into my [movies.py](https://github.com/coxem14/Capstone-1/blob/main/movies.py) file.
 
@@ -70,6 +75,8 @@ I investigated each column, eliminated those I would need more advanced NLP or i
 > * Appeared to be date, but was - you guessed it - a string
 >   * release_date    
 
+[Back to Top](#Table-of-Contents)
+
 ### The Pursuit
 
 ```
@@ -90,18 +97,114 @@ def name_cleaner(list_of_dicts):
     return []
 ```
 
-### Unexpected Visitor
-
-
-
 ### Montage
 
+#### Exploring Movie Counts
 
-### Flash Forward
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/movie_counts_by_genre.png'>
+</p>
 
 
 <p align = 'center'>
-    <img #src = 'https://media.giphy.com/media/l4FAPaGGeB7D1LfIA/giphy.gif'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/movie_count_by_company.png'>
+</p>
+
+
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/counts_by_country.png'>
+</p>
+
+### Scattermatrix with only numeric variables:
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/original_scatter_matrix.png'>
+</p>
+
+### Predicting Revenue with just Budget and Popularity Score
+
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/actual_vs_model_1.png'>
+</p>
+
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/residuals_1.png'>
+</p>
+
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/qq_plot_1.png'>
+</p>
+
+### Log Revenue using Budget and Popularity Score
+
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/actual_vs_model_2.png'>
+</p>
+
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/log_residuals_1.png'>
+</p>
+
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/log_qq_plot1.png)'>
+</p>
+
+[Back to Top](#Table-of-Contents)
+
+### Exploring genres
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/runtime_by_genre.png'>
+</p>
+
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/return_by_genre.png'>
+</p>
+
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/top_performing_movies.png'>
+</p>
+
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/return_by_genre_wo.png'>
+</p>
+
+```
+stats.ttest_ind(movies_condensed[movies_condensed['Drama'] == 1]['return'], movies_condensed[movies_condensed['Comedy'] == 1]['return'], equal_var = False)
+
+test_indResult(statistic=-2.347286178171048, pvalue=0.018972872818007438)
+```
+
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/top_performing_movies_wo_outliers.png'>
+</p>
+
+
+### Predicting Revenue (log) with addition of Genres, Production Companies, and Production Country 
+
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/actual_vs_model_3.png'>
+</p>
+
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/log_residuals_2.png'>
+</p>
+
+<p align = 'center'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/log_qq_plot_2.png'>
+</p>
+
+[Back to Top](#Table-of-Contents)
+
+## The Goodbye
+### Flash Forward
+
+In addition to the original questions I had at the beginning, I would also like to dig deeper into:
+> * Relationships between movie budget, revenues, ratings, release date, production company, production country, and language.
+> * How have these features changed over time? 
+
+
+
+<p align = 'center'>
+    <img src = 'https://media.giphy.com/media/l4FAPaGGeB7D1LfIA/giphy.gif'>
 </p>
 
 ### Citations
@@ -114,35 +217,6 @@ def name_cleaner(list_of_dicts):
 
 [Back to Top](#Table-of-Contents)
 
-## Ideas for section names
-
-### Reversal of Expectations
-
-### Revelation
-
-### Flashback
-
-### Dream
-
-### Emotional Breakdown
-
-### Training
-
-### Celebration
-
-### Shocking
-
-### Aftermath
-
-## Proposal: MoviEDA
-
-Some ideas to explore:
-
-> * Various relationships between movie budget, revenues, genres, ratings, release date, production company, and language.
-> * How have budgets and revenues for movies changed over time? 
-> * Are there relationships between the budget for a movie and how much revenue it generates? 
-> * Do certain genres of movies generate more revenue than others? Higher ratings than others?
-> * Does runtime impact budget, revenue, or rating?
 
 
 
