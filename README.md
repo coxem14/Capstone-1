@@ -18,12 +18,13 @@
     * [Introduction](#Meet-Cute)
     * [Data Cleaning](#Pursuit)
     * [EDA](#Montage)
-4. [Final Thoughts](#The-Goodbye) 
-    * [Future Ideas](#Flash-Forward)
+4. [Future Ideas](#Flash-Forward)
 
 ## Lights
 
  Movies touch many lives on a daily basis. They inspire us, educate us, and at times impact our beliefs, culture, and values. For some, movies offer a way to escape reality and unwind. For others, they provide an avenue for spending quality time with family and friends. However, film is much more than that. In 2019, the worldwide revenue for the film and streaming industry hit a record $100 billion USD<sup>[1]</sup>, with box office revenue surpassing $42 billion USD<sup>[2]</sup>. In the US, film and television support 2.5 million jobs, and pays over 180 billion USD in annual wages<sup>[3]</sup>. There is a lot of money to be made in movies, but no surefire way to make a profit. Data science allows us to analyze the factors which influence how a movie performs and make predictions about what audiences want.
+
+[Back to Top](#Table-of-Contents)
 
 ## Camera
 I have always been a huge fan of movies, so when I saw [The Movie Dataset](https://www.kaggle.com/rounakbanik/the-movies-dataset) on Kaggle, I took advantage of the opportunity to explore my interest while learning more about exploratory data analysis. The dataset is a combination of data collected from [TMDB](https://www.themoviedb.org/) (The Movie Database) API and [GroupLens](https://grouplens.org/datasets/movielens/latest/). 
@@ -34,6 +35,8 @@ Out of the 5 unique csv files included in the dataset, I used the following:
 
 There were also files containing movie plot keywords, credits, and links to all the movies in the Full MovieLens dataset. I might explore these further when I learn about NLP.
 
+[Back to Top](#Table-of-Contents)
+
 ## Action
 
 Questions:
@@ -42,6 +45,8 @@ Questions:
 > * Does runtime impact budget, revenue, or rating?
 
 I utilized [Jupyter Notebook](https://github.com/coxem14/Capstone-1/blob/main/MoviEDA.ipynb) for my analysis, and consolidated the functions I wrote to aid in data cleaning, data manipulating, and plotting into my [movies.py](https://github.com/coxem14/Capstone-1/blob/main/movies.py) file.
+
+[Back to Top](#Table-of-Contents)
 
 ### The Meet-Cute
 
@@ -77,7 +82,7 @@ I investigated each column, eliminated those I would need more advanced NLP or i
 
 [Back to Top](#Table-of-Contents)
 
-### The Pursuit
+## The Pursuit
 
 ```
 def literal_return(val):
@@ -96,8 +101,9 @@ def name_cleaner(list_of_dicts):
     #Return empty list in case of missing/malformed data
     return []
 ```
+[Back to Top](#Table-of-Contents)
 
-### Montage
+## Montage
 
 #### Exploring Movie Counts
 
@@ -115,12 +121,12 @@ def name_cleaner(list_of_dicts):
     <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/counts_by_country.png'>
 </p>
 
-### Scattermatrix with only numeric variables:
+#### Scattermatrix with only numeric variables:
 <p align = 'center'>
     <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/original_scatter_matrix.png'>
 </p>
 
-### Predicting Revenue with just Budget and Popularity Score
+#### Predicting Revenue with just Budget and Popularity Score
 
 <p align = 'center'>
     <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/actual_vs_model_1.png'>
@@ -150,7 +156,7 @@ def name_cleaner(list_of_dicts):
 
 [Back to Top](#Table-of-Contents)
 
-### Exploring genres
+#### Exploring genres
 <p align = 'center'>
     <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/runtime_by_genre.png'>
 </p>
@@ -178,7 +184,7 @@ test_indResult(statistic=-2.347286178171048, pvalue=0.018972872818007438)
 </p>
 
 
-### Predicting Revenue (log) with addition of Genres, Production Companies, and Production Country 
+#### Predicting Revenue (log) with addition of Genres, Production Companies, and Production Country 
 
 <p align = 'center'>
     <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/actual_vs_model_3.png'>
@@ -194,13 +200,12 @@ test_indResult(statistic=-2.347286178171048, pvalue=0.018972872818007438)
 
 [Back to Top](#Table-of-Contents)
 
-## The Goodbye
-### Flash Forward
+
+## Flash Forward
 
 In addition to the original questions I had at the beginning, I would also like to dig deeper into:
 > * Relationships between movie budget, revenues, ratings, release date, production company, production country, and language.
 > * How have these features changed over time? 
-
 
 
 <p align = 'center'>
