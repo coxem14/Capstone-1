@@ -7,7 +7,9 @@
 *Last update: 10/30/2020*
 ***
 
-<center><img src = https://media.giphy.com/media/8lKyuiFprZaj2lC3WN/giphy.gif></center>
+<p align = 'center'>
+    <img src = 'https://media.giphy.com/media/8lKyuiFprZaj2lC3WN/giphy.gif'>
+</p>
 
 [giphy](https://media.giphy.com/media/8lKyuiFprZaj2lC3WN/giphy.gif)
 
