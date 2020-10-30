@@ -8,7 +8,7 @@
 ***
 
 <p align="center">
-<img src="(https://media.giphy.com/media/8lKyuiFprZaj2lC3WN/giphy.gif)">
+<img src=(https://media.giphy.com/media/8lKyuiFprZaj2lC3WN/giphy.gif)>
 
 [ giphy](https://media.giphy.com/media/8lKyuiFprZaj2lC3WN/giphy.gif)
 </p>
