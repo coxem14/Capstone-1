@@ -151,7 +151,7 @@ def name_cleaner(list_of_dicts):
 </p>
 
 <p align = 'center'>
-    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/log_qq_plot1.png)'>
+    <img src = 'https://github.com/coxem14/Capstone-1/blob/main/images/log_qq_plot1.png'>
 </p>
 
 [Back to Top](#Table-of-Contents)
